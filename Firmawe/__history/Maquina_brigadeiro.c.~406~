@@ -1,0 +1,351 @@
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                  Maquina de cortar brogadeiros
+//
+//   build 07/04/2023 by Raul
+//  v1.0 REV. 100921
+//   programmer CCS 5.015
+//   debugger/programmer PICKit 3.10
+//   microcontroler PIC 16f877
+//   IDE CCS 5.015
+//   schematic: Labcenter Proteus 8.9
+//       @site:www.autorobotica.sp@gmail.com
+//       @email: raulstar3@gmail.com ,
+//       www.linkedin.com/in/raulstar/, Instagram: @raulstar3,github.com/raulstar
+//    External dependencies:
+
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#include <16F877.h>
+#FUSES WDT      // No Watch Dog Timer
+#FUSES PUT        // Power Up Timer
+#FUSES NOBROWNOUT // No brownout reset
+#FUSES NOLVP      // No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O
+
+#DEVICE ADC = 8
+#use delay(crystal = 4000000)
+#include <lcd.c>
+#use fast_io(A)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Macros
+#define DELAY 1000
+#define LED PIN_B5
+#define Limit_superior input(PIN_A1)
+#define Limit_inferior input(PIN_A2)
+#define liga input(PIN_E0)
+#define manual input(PIN_C1)
+#define sobe input(PIN_A4)
+#define desce input(PIN_A5)
+#define habilita input(PIN_A3)
+#define conte input(PIN_E1)
+#define menu input(PIN_C0)
+#define inverteMotor output_high(PIN_E2)
+#define desinverteMotor output_low(PIN_E2)
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Variaveis
+int16 acumulador, frequencia, contador;
+signed int16 error_meas,
+    kp = 30,
+    ki = 0,
+    kd = 30,
+    proportional,
+    integral,
+    derivative,
+    PID;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// constantes
+int setpoit = 5, duty = 0, pwm_period = 168; // Valor do período do PWM em us para 1.515 kHz;
+signed int potencia = 0, measure = 50, lastMeasure = 80;
+int funcao = 0;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Funções
+int16 frequecimetro(int16 acumulador);
+void pid_control();
+int leitura(void);
+float pwm(signed int potencia);
+int media(long frequencia);
+void comtroleMotor(int duty, setpoit);
+int16 contagem(void);
+int16 lerMemoria(void);
+void escreveMemoria(int16 variavel);
+void modo(int funcao);
+void atualizaDisplay(void);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Interrupções
+#INT_EXT
+void EXT_isr(void)
+{
+  static int1 borda = 0;
+  frequencia = frequecimetro(acumulador);
+
+  if (!borda)
+  {
+    borda = 1;
+    ext_int_edge(H_TO_L);
+  }
+  else
+  {
+    borda = 0;
+    ext_int_edge(L_TO_H);
+  }
+  acumulador = 0;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+#INT_TIMER0
+void TIMER0_isr(void)
+{
+  if (acumulador > 900)
+    frequencia = 0;
+  acumulador++;
+}
+
+void main()
+{
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Confiruração
+  delay_ms(10);
+  lcd_init();       // Inicializa o display LCD
+  lcd_gotoxy(1, 1); // Posiciona o cursor na primeira linha, primeira coluna
+  
+  setup_timer_0(RTCC_INTERNAL | RTCC_DIV_1 | RTCC_DIV_4); // 256 us overflow
+  setup_ccp1(CCP_PWM);
+  setup_timer_2(T2_DIV_BY_1, 124, 1); // configura o timer 2 com prescaler 1:1 e período de 1ms
+  set_pwm1_duty(0);
+
+  setup_adc_ports(AN0);
+  setup_adc(ADC_CLOCK_DIV_2);
+  enable_interrupts(INT_EXT);
+  ext_int_edge(L_TO_H);
+  enable_interrupts(INT_TIMER1);
+  enable_interrupts(INT_TIMER0);
+  enable_interrupts(GLOBAL);
+  setup_wdt(WDT_2304MS);
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  printf(lcd_putc, "e0\r\n");
+  delay_ms(50);
+  printf(lcd_putc, "\fCorta Brigadeiros\n           v1.0");
+ // delay_ms(900);
+
+  contador = lerMemoria();
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Loop principal
+  while (true)
+  {
+    restart_wdt();
+    setpoit = leitura();
+    if(!setpoit)duty = 0, potencia = 0;
+    pid_control();
+    duty = pwm(potencia);
+    contador = contagem();
+    if (menu)
+      contador = 0;
+    // modo(funcao);
+    atualizaDisplay();
+    comtroleMotor(duty, setpoit);
+    delay_ms(10);
+
+    escreveMemoria(contador);
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+int16 frequecimetro(int16 cont)
+{
+  frequencia = ((float)10000 / (cont * 5.12)); // Calcula a frequência atual do PWM
+  float temp = (float)5 * frequencia;
+  frequencia = (int)temp;
+  return frequencia;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+void pid_control()
+{
+  measure = frequencia;
+  error_meas = setpoit - measure;
+  proportional = error_meas * kp;
+  integral += error_meas * ki;
+  derivative = (lastMeasure - measure) * kd;
+  lastMeasure = measure;
+  PID = proportional + integral + derivative;
+  // potencia = PID + setpoit;
+  if (potencia > (PID + setpoit))
+    potencia = potencia - 1;
+  if (potencia < (PID + setpoit))
+    potencia++;
+  if (potencia >= 100)
+    potencia = 100;
+  if (potencia <= 0)
+    potencia = 0;
+
+} // end pid_control
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+int leitura(void)
+{
+  int value;
+  float temp;
+  set_adc_channel(0);
+  value = read_adc();
+  temp = ((float)100 / 255) * value;
+  value = (int)temp;
+  return value;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+float pwm(signed int potencia)
+{
+  float temp = ((float)pwm_period / 100) * potencia;
+  return temp;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+void comtroleMotor(int duty, setpoit)
+{
+
+  static int velocidadeManual = 0, limiteVelocidade = 150, volta = 0;
+
+  if (sobe && !Limit_superior)
+  {
+    funcao = 1;
+    volta = 0;
+    set_pwm1_duty(velocidadeManual);
+   inverteMotor;
+    if(velocidadeManual < limiteVelocidade)velocidadeManual = velocidadeManual + 5;
+  }
+  else if (desce && !Limit_inferior)
+  {
+     volta = 0;
+    funcao = 2;
+    set_pwm1_duty(velocidadeManual);
+    if(velocidadeManual < limiteVelocidade)velocidadeManual = velocidadeManual + 5;
+  }
+  
+   else if(liga && habilita && Limit_inferior && volta && Limit_superior ){
+   set_pwm1_duty(velocidadeManual);
+   inverteMotor;
+  }
+
+  else
+  {
+    if (liga && habilita && !Limit_inferior)
+    {
+      if (!setpoit) funcao = 0;
+        volta = 1;
+      desinverteMotor;
+      set_pwm1_duty(duty);
+    }
+    else
+    {
+      set_pwm1_duty(0);
+      potencia = 0;
+      //velocidadeManual = 0;
+     if(funcao == 1){
+      delay_ms(300);
+      funcao = 0;
+      desinverteMotor;
+     }
+    }
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+int16 contagem(void)
+{
+  static int flag = 0;
+  static int16 contadorTmp;
+  if (menu)
+    contadorTmp = 0;
+  if (conte)
+  {
+    if (!flag)
+      contadorTmp++;
+    flag = 1;
+  }
+  else
+    flag = 0;
+  return contadorTmp;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+void escreveMemoria(int16 variavel)
+{
+  int byteBaixo, byteAlto, endereco = 0;
+
+  byteBaixo = variavel & 0xFF;
+  byteAlto = variavel >> 8;
+  write_eeprom(endereco, byteBaixo);
+  write_eeprom(endereco + 1, byteAlto);
+  if (menu)
+  {
+    write_eeprom(endereco, 0);
+    write_eeprom(endereco + 1, 0);
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+int16 lerMemoria(void)
+{
+  int16 memoria;
+  int byteBaixo, byteAlto, endereco = 0;
+
+  byteBaixo = read_eeprom(endereco);
+  byteAlto = read_eeprom(endereco + 1);
+  memoria = byteAlto << 8;
+  memoria |= byteBaixo;
+
+  return memoria;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+void modo(int funcao)
+{
+  switch (funcao)
+  {
+
+  case 0:
+    lcd_gotoxy(1, 1);                             // Posiciona o cursor na segunda linha, primeira coluna
+    printf(lcd_putc, "\fVelocidade %u", setpoit); // Imprime a frequência no display
+    break;
+
+  case 1:
+    lcd_gotoxy(1, 1);           // Posiciona o cursor na segunda linha, primeira coluna
+    printf(lcd_putc, "\fSobe"); // Imprime a frequência no display
+    break;
+
+  case 2:
+    lcd_gotoxy(1, 1);            // Posiciona o cursor na segunda linha, primeira coluna
+    printf(lcd_putc, "\fDesce"); // Imprime a frequência no display
+    break;
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+void atualizaDisplay(void)
+{
+  static int t = 0;
+  t++;
+  if (t == 6)
+  {
+    t = 0;
+    lcd_gotoxy(1, 1);                             // Posiciona o cursor na segunda linha, primeira coluna
+    printf(lcd_putc, "\fVelocidade %u  %u", setpoit, duty); // Imprime a frequência no display
+
+    lcd_gotoxy(9, 1); // Posiciona o cursor na segunda linha, primeira coluna
+    // printf(lcd_putc, "set:%u ", setpoit); // Imprime a frequência no display
+
+    lcd_gotoxy(1, 2);                              // Posiciona o cursor na segunda linha, primeira coluna
+    printf(lcd_putc, "freq %lu ", frequencia); // Imprime a frequência no display
+                                                   // printf(lcd_putc, "contador %lu rpm", (contador)); // Imprime a frequência no display
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//

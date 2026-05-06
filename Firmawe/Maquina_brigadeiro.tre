@@ -1,0 +1,95 @@
+ÀÄMaquina_brigadeiro
+   ÃÄMAIN  1/228  Ram=1
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÃÄlerMemoria  0/34  Ram=6
+   ³  ÃÄ@delay_ms1  0/21  Ram=1
+   ³  ÃÄlcd_init  0/62  Ram=6
+   ³  ³  ÃÄ@delay_ms1  0/21  Ram=1
+   ³  ³  ÃÄlcd_send_nibble  0/12  Ram=1
+   ³  ³  ÃÄ@delay_ms1  0/21  Ram=1
+   ³  ³  ÃÄlcd_send_nibble  0/12  Ram=1
+   ³  ³  ÃÄ@delay_ms1  0/21  Ram=1
+   ³  ³  ÀÄlcd_send_byte  0/64  Ram=3
+   ³  ³     ÃÄlcd_read_byte  (Inline)  Ram=3
+   ³  ³     ³  ÃÄlcd_read_nibble  0/6  Ram=0
+   ³  ³     ³  ÀÄlcd_read_nibble  0/6  Ram=0
+   ³  ³     ÃÄlcd_send_nibble  0/12  Ram=1
+   ³  ³     ÀÄlcd_send_nibble  0/12  Ram=1
+   ³  ÃÄlcd_gotoxy  0/18  Ram=4
+   ³  ³  ÀÄlcd_send_byte  0/64  Ram=3
+   ³  ³     ÀÄ*
+   ³  ÃÄ@PSTRINGC7_640  0/86  Ram=4
+   ³  ³  ÃÄlcd_putc  0/44  Ram=1
+   ³  ³  ³  ÃÄlcd_gotoxy  0/18  Ram=4
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÃÄlcd_send_byte  0/64  Ram=3
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÃÄ@delay_ms1  0/21  Ram=1
+   ³  ³  ³  ÃÄlcd_gotoxy  0/18  Ram=4
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÃÄlcd_send_byte  0/64  Ram=3
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÀÄlcd_send_byte  0/64  Ram=3
+   ³  ³  ³     ÀÄ*
+   ³  ³  ÀÄlcd_putc  0/44  Ram=1
+   ³  ³     ÀÄ*
+   ³  ÃÄ@delay_ms1  0/21  Ram=1
+   ³  ÃÄ@PSTRINGC7_640  0/86  Ram=4
+   ³  ³  ÀÄ*
+   ³  ÃÄ@delay_ms1  0/21  Ram=1
+   ³  ÃÄlerMemoria  0/34  Ram=6
+   ³  ÃÄleitura  0/104  Ram=2
+   ³  ³  ÃÄ@MUL1616  (Inline)  Ram=5
+   ³  ³  ÀÄ@DIV1616  (Inline)  Ram=5
+   ³  ÃÄpid_control  0/165  Ram=3
+   ³  ³  ÃÄ@MULS1616  0/46  Ram=6
+   ³  ³  ÃÄ@MULS1616  0/46  Ram=6
+   ³  ³  ÀÄ@MULS1616  0/46  Ram=6
+   ³  ÃÄpwm  0/130  Ram=9
+   ³  ³  ÃÄ@ITOF  0/29  Ram=2
+   ³  ³  ÃÄ@DIVFF  0/217  Ram=14
+   ³  ³  ÃÄ@SITOF  (Inline)  Ram=2
+   ³  ³  ÀÄ@MULFF  0/138  Ram=13
+   ³  ÃÄ@SFTOI  0/31  Ram=4
+   ³  ÃÄcontagem  0/41  Ram=0
+   ³  ³  ÀÄ@delay_ms1  0/21  Ram=1
+   ³  ÃÄatualizaDisplay  0/200  Ram=0
+   ³  ³  ÃÄlcd_gotoxy  0/18  Ram=4
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄ@PSTRINGCN7_640  0/87  Ram=5
+   ³  ³  ³  ÃÄlcd_putc  0/44  Ram=1
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÀÄlcd_putc  0/44  Ram=1
+   ³  ³  ³     ÀÄ*
+   ³  ³  ÃÄ@PRINTF_U_640  (Inline)  Ram=2
+   ³  ³  ³  ÃÄ@DIV88  0/21  Ram=3
+   ³  ³  ³  ÃÄlcd_putc  0/44  Ram=1
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÃÄ@DIV88  0/21  Ram=3
+   ³  ³  ³  ÃÄlcd_putc  0/44  Ram=1
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÀÄlcd_putc  0/44  Ram=1
+   ³  ³  ³     ÀÄ*
+   ³  ³  ÃÄlcd_gotoxy  0/18  Ram=4
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄ@PSTRINGCN7_640  0/87  Ram=5
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄ@PRINTF_LU_640  (Inline)  Ram=9
+   ³  ³  ³  ÀÄlcd_putc  0/44  Ram=1
+   ³  ³  ³     ÀÄ*
+   ³  ³  ÀÄlcd_putc  0/44  Ram=1
+   ³  ³     ÀÄ*
+   ³  ÃÄcomtroleMotor  0/72  Ram=3
+   ³  ³  ÀÄ@delay_ms1  0/21  Ram=1
+   ³  ÃÄ@delay_ms1  0/21  Ram=1
+   ³  ÀÄescreveMemoria  1/115  Ram=6
+   ÃÄEXT_isr  0/120  Ram=0
+   ³  ÀÄfrequecimetro  (Inline)  Ram=2
+   ³     ÃÄ@ITOF  0/29  Ram=2
+   ³     ÃÄ@MULFF  0/138  Ram=13
+   ³     ÃÄ@DIVFF  0/217  Ram=14
+   ³     ÃÄ@SFTOI  0/31  Ram=4
+   ³     ÃÄ@ITOF  0/29  Ram=2
+   ³     ÃÄ@MULFF  0/138  Ram=13
+   ³     ÀÄ@SFTOI  0/31  Ram=4
+   ÀÄTIMER0_isr  0/20  Ram=0

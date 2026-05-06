@@ -1,0 +1,261 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004-005 @WRITE_PROGRAM_MEMORY8.P2
+008     lcdlat
+008     lcd
+008     PSP_DATA
+015     CCP_1
+015     CCP_1_LOW
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B     CCP_2
+01C     CCP_2_HIGH
+020     @INTERRUPT_AREA
+021     @INTERRUPT_AREA
+022     @INTERRUPT_AREA
+023     @INTERRUPT_AREA
+024     @INTERRUPT_AREA
+025     @INTERRUPT_AREA
+026     @INTERRUPT_AREA
+027     @INTERRUPT_AREA
+028     @INTERRUPT_AREA
+029     @INTERRUPT_AREA
+02A     @INTERRUPT_AREA
+02B     @INTERRUPT_AREA
+02C-02D acumulador
+02E-02F frequencia
+030-031 contador
+032-033 error_meas
+034-035 kp
+036-037 ki
+038-039 kd
+03A-03B proportional
+03C-03D integral
+03E-03F derivative
+040-041 PID
+042     setpoit
+043     duty
+044     pwm_period
+045     potencia
+046     measure
+047     lastMeasure
+048     funcao
+049-04A teste
+04B.0   EXT_isr.borda
+04C     @TRIS_C
+04D     comtroleMotor.velocidadeManual
+04E     comtroleMotor.limiteVelocidade
+04F     contagem.flag
+050     atualizaDisplay.t
+051     pid_control.potenciaMinima
+051-052 lerMemoria.memoria
+051-052 escreveMemoria.variavel
+051-052 @PRINTF_LU_640.P1
+051     @PRINTF_U_640.P2
+051     pwm.potencia
+051-052 leitura.value
+051     modo.funcao
+051     comtroleMotor.duty
+051     lcd_init.i
+051     @PSTRINGCN7_640.P1
+051     MAIN.@SCRATCH1
+051     @PSTRINGC7_640.@SCRATCH1
+052     comtroleMotor.setpoit
+052-055 lcd_init.LCD_INIT_STRING
+052     @PRINTF_U_640.P1
+052-055 pwm.temp
+052     @PSTRINGC7_640.@SCRATCH2
+052     pid_control.@SCRATCH1
+052     @PSTRINGCN7_640.@SCRATCH1
+053-054 @DIV1616.P1
+053-054 @MUL1616.P2
+053     escreveMemoria.byteBaixo
+053     @DIV88.P1
+053     lerMemoria.byteBaixo
+053     @PSTRINGC7_640.@SCRATCH3
+053     pid_control.@SCRATCH2
+053     comtroleMotor.@SCRATCH1
+053     @PSTRINGCN7_640.@SCRATCH2
+053     @PRINTF_LU_640.@SCRATCH1
+054     @DIV88.P1
+054     escreveMemoria.byteAlto
+054     lerMemoria.byteAlto
+054-055 @MULS1616.P1
+054     @PSTRINGC7_640.@SCRATCH4
+054     @PSTRINGCN7_640.@SCRATCH3
+054     @PRINTF_LU_640.@SCRATCH2
+055     lerMemoria.endereco
+055-056 @DIV1616.P1
+055-056 @MUL1616.P2
+055     escreveMemoria.endereco
+055     @PSTRINGCN7_640.@SCRATCH4
+055     @DIV88.@SCRATCH1
+055     @PRINTF_LU_640.@SCRATCH3
+056-057 @MULS1616.P1
+056     lcd_init.@SCRATCH1
+056     pwm.@SCRATCH1
+056     escreveMemoria.@SCRATCH1
+056     lerMemoria.@SCRATCH1
+056     @PRINTF_LU_640.@SCRATCH4
+057     @MUL1616.@SCRATCH1
+057     @DIV1616.@SCRATCH1
+057     pwm.@SCRATCH2
+057     @PRINTF_LU_640.@SCRATCH5
+058     @MULS1616.@SCRATCH1
+058     pwm.@SCRATCH3
+058     @PRINTF_LU_640.@SCRATCH6
+059     @MULS1616.@SCRATCH2
+059     pwm.@SCRATCH4
+059     @PRINTF_LU_640.@SCRATCH7
+05A-05B @SITOF.P1
+05A     lcd_putc.c
+05B     lcd_gotoxy.x
+05B     @delay_ms1.P1
+05C     lcd_gotoxy.y
+05D     lcd_gotoxy.address
+05E     lcd_gotoxy.@SCRATCH1
+05F     lcd_send_byte.address
+060     lcd_send_byte.n
+061     lcd_read_byte.low
+061     lcd_send_byte.@SCRATCH1
+062     lcd_read_byte.high
+062     lcd_send_nibble.n
+063     lcd_read_byte.@SCRATCH1
+068-069 frequecimetro.cont
+06A-06D frequecimetro.temp
+06E-071 @MULFF.P1
+06E-071 @SFTOI.P2
+06E-06F @ITOF.P3
+072-075 @MULFF.P1
+073-076 @DIVFF.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B-07E @DIVFF.P1
+07F     @INTERRUPT_AREA
+088     lcdtris
+0A0     @MULFF.@SCRATCH1
+0A0     @DIVFF.@SCRATCH1
+0A1     @MULFF.@SCRATCH2
+0A1     @DIVFF.@SCRATCH2
+0A2     @MULFF.@SCRATCH3
+0A2     @DIVFF.@SCRATCH3
+0A3     @MULFF.@SCRATCH4
+0A3     @DIVFF.@SCRATCH4
+0A4     @MULFF.@SCRATCH5
+0A4     @DIVFF.@SCRATCH5
+0A5     @DIVFF.@SCRATCH6
+0FF     @INTERRUPT_AREA
+10D-10E @WRITE_PROGRAM_MEMORY8.P1
+10D-10E @READ_PROGRAM_MEMORY8.P2
+17F     @INTERRUPT_AREA
+1FF     @INTERRUPT_AREA
+27F     @INTERRUPT_AREA
+2FF     @INTERRUPT_AREA
+37F     @INTERRUPT_AREA
+3FF     @INTERRUPT_AREA
+47F     @INTERRUPT_AREA
+4FF     @INTERRUPT_AREA
+57F     @INTERRUPT_AREA
+5FF     @INTERRUPT_AREA
+67F     @INTERRUPT_AREA
+6FF     @INTERRUPT_AREA
+77F     @INTERRUPT_AREA
+7FF     @INTERRUPT_AREA
+87F     @INTERRUPT_AREA
+8FF     @INTERRUPT_AREA
+97F     @INTERRUPT_AREA
+9FF     @INTERRUPT_AREA
+A7F     @INTERRUPT_AREA
+AFF     @INTERRUPT_AREA
+B7F     @INTERRUPT_AREA
+BFF     @INTERRUPT_AREA
+C7F     @INTERRUPT_AREA
+CFF     @INTERRUPT_AREA
+D7F     @INTERRUPT_AREA
+DFF     @INTERRUPT_AREA
+E7F     @INTERRUPT_AREA
+EFF     @INTERRUPT_AREA
+F7F     @INTERRUPT_AREA
+FFF     @INTERRUPT_AREA
+
+ROM Allocation:
+000056  @ITOF
+000073  @MULFF
+0000FD  @DIVFF
+0001D6  @SFTOI
+0001F5  EXT_isr
+0001F9  frequecimetro
+00026D  TIMER0_isr
+000281  @const696.call
+000284  @const698.call
+000296  @const734.call
+00029E  @const743.call
+0002A5  @const746.call
+0002B0  @const747.call
+0002BB  @const748.call
+0002CB  @const749.call
+0002D6  @const752.call
+0002DE  @const753.call
+0002E5  lerMemoria
+000307  @delay_ms1
+00031C  lcd_send_nibble
+000328  lcd_read_nibble
+00032E  lcd_send_byte
+000334  lcd_read_byte
+00036E  lcd_init
+0003AC  lcd_gotoxy
+0003BE  lcd_putc
+0003EA  @PSTRINGC7_640
+000440  leitura
+00045C  @MUL1616
+00047B  @DIV1616
+0004A8  @MULS1616
+0004D6  pid_control
+00057B  pwm
+0005AF  @SITOF
+0005FD  contagem
+000626  @PSTRINGCN7_640
+00067D  @DIV88
+000692  atualizaDisplay
+0006AA  @PRINTF_U_640
+0006F2  @PRINTF_LU_640
+00075A  comtroleMotor
+0007A1  @cinit1
+000800  escreveMemoria
+000873  MAIN
+000895  @cinit2
+
+Project Directory:
+    G:\Meu Drive\Maquina de brigadeiros\Firmawe\
+
+Project Files:
+    Maquina_brigadeiro.c                                    [19-jul-23 23:34  CRC=69D7DDC3]
+    C:\Program Files (x86)\PICC 5\PICC\Devices\16F877.h     [12-nov-13 14:35  CRC=ADB5114D]
+    C:\Program Files (x86)\PICC 5\PICC\Drivers\lcd.c        [19-set-13 15:38  CRC=D1A6378A]
+
+Source signature=BAD95E24
+
+Units:
+    Maquina_brigadeiro (main)
+
+Compiler Settings:
+    Processor:      PIC16F877
+    Pointer Size:   16
+    ADC Range:      0-1023
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Maquina_brigadeiro.xsym
+    Errors:      Maquina_brigadeiro.err
+    Ext Symbols: Maquina_brigadeiro.esym
+    INHX8:       Maquina_brigadeiro.hex
+    Symbols:     Maquina_brigadeiro.sym
+    List:        Maquina_brigadeiro.lst
+    Debug/COFF:  Maquina_brigadeiro.cof
+    Project:     Maquina_brigadeiro.ccspjt
+    Call Tree:   Maquina_brigadeiro.tre
+    Statistics:  Maquina_brigadeiro.STA

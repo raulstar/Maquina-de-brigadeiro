@@ -1,0 +1,8 @@
+>>> Warning 216 "Maquina_brigadeiro.c" Line 355(1,2): Interrupts disabled during call to prevent re-entrancy:  (@ITOF)
+>>> Warning 216 "Maquina_brigadeiro.c" Line 355(1,2): Interrupts disabled during call to prevent re-entrancy:  (@DIVFF)
+>>> Warning 216 "Maquina_brigadeiro.c" Line 355(1,2): Interrupts disabled during call to prevent re-entrancy:  (@MULFF)
+>>> Warning 216 "Maquina_brigadeiro.c" Line 355(1,2): Interrupts disabled during call to prevent re-entrancy:  (@SFTOI)
+>>> Warning 202 "Maquina_brigadeiro.c" Line 57(6,11): Variable never used:   teste
+      Memory usage:   ROM=28%      RAM=15% - 28%
+      0 Errors,  5 Warnings.
+Build Successful.

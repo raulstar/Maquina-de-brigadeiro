@@ -3,51 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Página Simples</title>
+    <title>Máquina de Brigadeiro</title>
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            margin:0;
+            padding:0;
+            background:#f5f5f5;
+            color:#333;
         }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 15px;
-            text-align: center;
+
+        header{
+            background:#5a2d0c;
+            color:white;
+            padding:40px 20px;
+            text-align:center;
         }
-        main {
-            padding: 20px;
+
+        header h1{
+            margin:0;
+            font-size:40px;
         }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+
+        header p{
+            margin-top:10px;
+            font-size:18px;
+        }
+
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:auto;
+            padding:20px;
+        }
+
+        section{
+            background:white;
+            margin-bottom:30px;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h2{
+            color:#5a2d0c;
+            margin-bottom:15px;
+        }
+
+        img{
+            width:100%;
+            max-width:800px;
+            display:block;
+            margin:auto;
+            border-radius:10px;
+        }
+
+        video{
+            width:100%;
+            max-width:800px;
+            display:block;
+            margin:auto;
+            border-radius:10px;
+        }
+
+        ul{
+            line-height:1.8;
+        }
+
+        a{
+            color:#8b4513;
+            font-weight:bold;
+        }
+
+        footer{
+            background:#222;
+            color:white;
+            text-align:center;
+            padding:20px;
+            margin-top:40px;
         }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Bem-vindo ao meu site</h1>
-    </header>
+<header>
+    <h1>Máquina de Brigadeiro com Controle de Peso</h1>
 
-    <main>
-        <h2>Sobre</h2>
-        <p>Esta é uma página HTML simples como exemplo.</p>
+    <p>
+        Projeto de automação embarcada para dosagem e controle individual
+        de peso de brigadeiros.
+    </p>
+</header>
 
-        <h2>Contato</h2>
-        <p>Email: exemplo@email.com</p>
-    </main>
+<div class="container">
 
-    <footer>
-        <p>© 2026 - Meu Site</p>
-    </footer>
+    <section>
+        <h2>Sobre o Projeto</h2>
+
+        <p>
+            Projeto de adaptação de uma máquina de fabricação de salgados e doces,
+            com foco na produção automatizada de brigadeiros padronizados por peso.
+        </p>
+
+        <p>
+            O sistema realiza a dosagem precisa da massa permitindo controlar
+            individualmente o peso de cada brigadeiro, aumentando a produtividade
+            e reduzindo desperdícios.
+        </p>
+    </section>
+
+    <section>
+        <h2>Vídeo do Projeto</h2>
+
+        <p>
+            Demonstração do funcionamento do protótipo:
+        </p>
+
+        <p>
+            <a href="https://youtu.be/tlVxIcxrgFs?si=QzBE4BBvu3v554gS" target="_blank">
+                Assistir vídeo no YouTube
+            </a>
+        </p>
+    </section>
+
+    <section>
+        <h2>Principais Recursos</h2>
+
+        <ul>
+            <li>Controle automático da dosagem</li>
+            <li>Padronização do peso dos brigadeiros</li>
+            <li>Sistema embarcado dedicado</li>
+            <li>Interface eletrônica de controle</li>
+            <li>Ajuste fino de parâmetros de produção</li>
+            <li>Projeto mecânico e eletrônico integrado</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Hardware Utilizado</h2>
+
+        <ul>
+            <li>Microcontrolador PIC18F887</li>
+            <li>Circuito eletrônico desenvolvido em PCI</li>
+            <li>Sensores e atuadores</li>
+            <li>Sistema de acionamento da máquina adaptada</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Firmware</h2>
+
+        <p>
+            O firmware foi desenvolvido em linguagem C utilizando a IDE CCS Compiler.
+        </p>
+
+        <ul>
+            <li>Controle do processo de dosagem</li>
+            <li>Leitura de sensores</li>
+            <li>Controle de motores e atuadores</li>
+            <li>Ajuste e monitoramento do peso</li>
+            <li>Automação do ciclo de produção</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Simulação do Projeto</h2>
+
+        <img src="Midias/Simulação.jpg" alt="Simulação do projeto">
+    </section>
+
+    <section>
+        <h2>Placa Desenvolvida</h2>
+
+        <img src="Midias/Placa.jpg" alt="Placa PCI">
+    </section>
+
+    <section>
+        <h2>Layout da PCI</h2>
+
+        <img src="Midias/Layout.png" alt="Layout da placa">
+    </section>
+
+    <section>
+        <h2>Footprints Utilizados</h2>
+
+        <img src="Midias/Footprint.png" alt="Footprints">
+    </section>
+
+    <section>
+        <h2>Diagrama Elétrico</h2>
+
+        <img src="Midias/Diagrama elétrico.png" alt="Diagrama elétrico">
+    </section>
+
+    <section>
+        <h2>Vídeo - Teste de Redução</h2>
+
+        <video controls>
+            <source src="Videos/Teste de redução.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo.
+        </video>
+    </section>
+
+    <section>
+        <h2>Vídeo - Ajustes do Sistema</h2>
+
+        <video controls>
+            <source src="Videos/Ajustes.mp4" type="video/mp4">
+            Seu navegador não suporta vídeo.
+        </video>
+    </section>
+
+    <section>
+        <h2>Tecnologias Utilizadas</h2>
+
+        <ul>
+            <li>Linguagem C</li>
+            <li>CCS C Compiler</li>
+            <li>PIC18F887</li>
+            <li>Eletrônica embarcada</li>
+            <li>Automação industrial</li>
+        </ul>
+    </section>
+
+</div>
+
+<footer>
+    <p>Projeto desenvolvido por Raul Star</p>
+</footer>
 
 </body>
 </html>

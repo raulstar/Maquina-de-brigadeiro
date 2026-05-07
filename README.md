@@ -132,6 +132,8 @@ Demonstrar uma solução de automação embarcada aplicada à indústria aliment
 - Eletrônica embarcada
 - Automação industrial
 
+- https://raulstar.github.io/Maquina-de-brigadeiro/
+
 ---
 
 # Autor
